@@ -1,5 +1,4 @@
 import 'package:dfrog_htmx/icons/bars_4.dart';
-import 'package:dfrog_htmx/icons/home.dart';
 import 'package:dfrog_htmx/menu_list.dart';
 import 'package:html_template/html_template.dart';
 
