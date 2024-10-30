@@ -2,7 +2,7 @@ import 'package:html_template/html_template.dart';
 
 part 'menu_list.g.dart';
 
-typedef MenuItem = ({String title, String url, String icon});
+typedef MenuItem = ({String title, String url, TrustedHtml icon});
 
 @template
 void _menuList(List<MenuItem> menu) {
@@ -10,7 +10,7 @@ void _menuList(List<MenuItem> menu) {
 
   '''
     <li *for="${item!} in $menu">
-      <a>${item.title}</a>
+      <a href="${item.url}">${item.icon} ${item.title}</a>
     </li>
   ''';
 }

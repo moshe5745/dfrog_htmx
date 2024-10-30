@@ -1,4 +1,6 @@
 import 'package:dfrog_htmx/icons/bars_4.dart';
+import 'package:dfrog_htmx/icons/globe.dart';
+import 'package:dfrog_htmx/icons/home.dart';
 import 'package:dfrog_htmx/menu_list.dart';
 import 'package:html_template/html_template.dart';
 
@@ -7,8 +9,8 @@ part 'navbar.g.dart';
 @template
 void _navbar() {
   var menu = menuList([
-    (title: "Home", icon: "home", url: "/"),
-    (title: "About", icon: "about", url: "/about"),
+    (title: "Home", icon: iconHome(), url: "/"),
+    (title: "About", icon: iconGlobe(), url: "/about"),
   ]);
 
   '''

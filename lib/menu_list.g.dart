@@ -18,8 +18,9 @@ TrustedHtml menuList(List<MenuItem> menu) {
   for (var item in template.nonNullIterable(menu)) {
     $.write('<li>');
     $.write('\n      ');
-    $.write('<a>');
-    $.write('${TrustedHtml.escape(item.title)}');
+    $.write('<a href="${TrustedHtml.escape.attribute(item.url)}">');
+    $.write(
+        '${TrustedHtml.escape(item.icon)} ${TrustedHtml.escape(item.title)}');
     $.write('</a>');
     $.write('\n    ');
     $.write('</li>');

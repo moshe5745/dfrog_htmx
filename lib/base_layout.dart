@@ -7,7 +7,7 @@ void _baseLayout(TrustedHtml content) {
   '''<html lang="">
 <head>
     <title>HTMX</title>
-    <link href="./output.css" rel="stylesheet">
+    <link href="./static/output.css" rel="stylesheet">
 </head>
 <body>
 ${content}  
