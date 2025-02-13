@@ -2,3 +2,5 @@ bricks:
   hello: ^0.1.0+1
   icon:
     path: bricks/icon
+  component:
+    path: bricks/component

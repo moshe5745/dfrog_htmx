@@ -12,6 +12,10 @@ An example application built with dart_frog
 [very_good_analysis_link]: https://pub.dev/packages/very_good_analysis
 
 #### Start dev server
-`npm run dev`
-
-
+dart_frog dev
+#### Start template generation
+dart run build_runner watch --delete-conflicting-outputs
+#### Start tailwind generation
+./tailwindcss -i css/input.css -o public/output.css --watch
+#### Start browser sync
+browser-sync start --proxy "http://localhost:8080" --files "public/output.css, routes/**/*.dart, lib/**/*.g.dart" --reload-delay 1000
