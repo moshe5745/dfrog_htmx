@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   dart_frog: ^1.1.0
+  http: ^0.13.5
   html_template: ^0.3.0
 
 dev_dependencies:
