@@ -1,9 +1,7 @@
 # SSR-Interactivity
 
-[![License: MIT][license_badge]][license_link]
-
 ### An example application built with dart_frog to show that client interactivity can be easily obtained with SSR rendering strategy.
-### This approach obscures all the complexities coming with SPA strategy (React, Angular, etc.).
+### This approach obscures all the complexities coming with SPA strategy (React, Angular, etc.)
 
 
 #### Start dev server (dart_frog)
