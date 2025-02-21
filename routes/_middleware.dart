@@ -16,6 +16,9 @@ Handler middleware(Handler handler) {
           <head>
             <title>Your Page Title</title>
             <link href="./output.css" rel="stylesheet">
+            <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/sort@3.x.x/dist/cdn.min.js"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+            <script src="./sse.js">
           </head>
           <body>
             ${navbar(TrustedHtml(await response.body()))}

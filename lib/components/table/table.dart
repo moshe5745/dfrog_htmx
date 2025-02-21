@@ -1,22 +1,37 @@
+import 'package:dfrog_htmx/icons/arrows_up_down.dart';
 import 'package:html_template/html_template.dart';
 
 part 'table.g.dart';
 
-abstract class BaseColumn {
-  BaseColumn(this.title);
+abstract class BaseCell {
+  BaseCell(this.title);
 
   final String title;
 
   TrustedHtml toHtml();
 }
 
+class TableData {
+  TableData({
+    required this.titles,
+    required this.rows,
+  });
+
+  List<String> titles;
+  List<List<BaseCell>> rows;
+}
+
 @template
-void _Table(List<BaseColumn> cols) {
-  BaseColumn? col;
+void _Table(TableData tableData) {
+  var TableData(:rows, :titles) = tableData;
+
+  List<BaseCell>? row;
+  BaseCell? cell;
+  String? title;
+
   '''
-  <div class="overflow-x-auto">
-  <table class="table">
-    <!-- head -->
+<div class="overflow-x-auto">
+  <table class="table" x-data="{}">
     <thead>
       <tr>
         <th>
@@ -24,26 +39,30 @@ void _Table(List<BaseColumn> cols) {
             <input type="checkbox" class="checkbox" />
           </label>
         </th>
-        <th *for="${col!} in $cols">${col.title}</th>
+        <th *for="${title!} in $titles">${title}</th>
       </tr>
     </thead>
-    <tbody>
-      <tr *for="${col} in $cols">
+    <tbody x-sort>
+      <tr *for="${row!} in $rows" x-sort:item>
         <th>
           <label>
             <input type="checkbox" class="checkbox" />
           </label>
         </th>
-        <td>
-          ${col.toHtml()}
+        <td *for="${cell!} in $row">
+          ${cell.toHtml()}
          </td>
+         <th>
+         <label x-sort:handle>
+          ${iconArrowsUpDown()}
+         </label>
+         </th>
       </tr>
     </tbody>
-    <!-- foot -->
     <tfoot>
       <tr>
         <th></th>
-        <th *for="${col} in $cols">${col.title}</th>
+        <th *for="${title} in $titles">${title}</th>
         <th></th>
       </tr>
     </tfoot>

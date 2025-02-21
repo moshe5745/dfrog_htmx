@@ -10,16 +10,16 @@ part of 'table.dart';
 // ignore_for_file: unused_local_variable
 // ignore_for_file: unnecessary_string_interpolations
 @GenerateFor(_Table)
-TrustedHtml Table(List<BaseColumn> cols) {
+TrustedHtml Table(TableData tableData) {
   var $ = StringBuffer();
 
-  BaseColumn? col;
-  $.write('  ');
+  var TableData(:rows, :titles) = tableData;
+  List<BaseCell>? row;
+  BaseCell? cell;
+  String? title;
   $.write('<div class="overflow-x-auto">');
   $.write('\n  ');
-  $.write('<table class="table">');
-  $.write('\n    ');
-  $.writeln('''<!--  head  -->''');
+  $.write('<table class="table" x-data="{}">');
   $.write('\n    ');
   $.write('<thead>');
   $.write('\n      ');
@@ -35,9 +35,9 @@ TrustedHtml Table(List<BaseColumn> cols) {
   $.write('\n        ');
   $.write('</th>');
   $.write('\n        ');
-  for (var col in template.nonNullIterable(cols)) {
+  for (var title in template.nonNullIterable(titles)) {
     $.write('<th>');
-    $.write('${TrustedHtml.escape(col.title)}');
+    $.write('${TrustedHtml.escape(title)}');
     $.write('</th>');
   }
   $.write('\n      ');
@@ -45,10 +45,10 @@ TrustedHtml Table(List<BaseColumn> cols) {
   $.write('\n    ');
   $.write('</thead>');
   $.write('\n    ');
-  $.write('<tbody>');
+  $.write('<tbody x-sort="">');
   $.write('\n      ');
-  for (var col in template.nonNullIterable(cols)) {
-    $.write('<tr>');
+  for (var row in template.nonNullIterable(rows)) {
+    $.write('<tr x-sort:item="">');
     $.write('\n        ');
     $.write('<th>');
     $.write('\n          ');
@@ -60,18 +60,28 @@ TrustedHtml Table(List<BaseColumn> cols) {
     $.write('\n        ');
     $.write('</th>');
     $.write('\n        ');
-    $.write('<td>');
-    $.write('''
-          ${TrustedHtml.escape(col.toHtml())}
+    for (var cell in template.nonNullIterable(row)) {
+      $.write('<td>');
+      $.write('''
+          ${TrustedHtml.escape(cell.toHtml())}
          ''');
-    $.write('</td>');
+      $.write('</td>');
+    }
+    $.write('\n         ');
+    $.write('<th>');
+    $.write('\n         ');
+    $.write('<label x-sort:handle="">');
+    $.write('''
+          ${TrustedHtml.escape(iconArrowsUpDown())}
+         ''');
+    $.write('</label>');
+    $.write('\n         ');
+    $.write('</th>');
     $.write('\n      ');
     $.write('</tr>');
   }
   $.write('\n    ');
   $.write('</tbody>');
-  $.write('\n    ');
-  $.writeln('''<!--  foot  -->''');
   $.write('\n    ');
   $.write('<tfoot>');
   $.write('\n      ');
@@ -80,9 +90,9 @@ TrustedHtml Table(List<BaseColumn> cols) {
   $.write('<th>');
   $.write('</th>');
   $.write('\n        ');
-  for (var col in template.nonNullIterable(cols)) {
+  for (var title in template.nonNullIterable(titles)) {
     $.write('<th>');
-    $.write('${TrustedHtml.escape(col.title)}');
+    $.write('${TrustedHtml.escape(title)}');
     $.write('</th>');
   }
   $.write('\n        ');
