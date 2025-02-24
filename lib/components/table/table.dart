@@ -42,7 +42,7 @@ void _Table(TableData tableData) {
         <th *for="${title!} in $titles">${title}</th>
       </tr>
     </thead>
-    <tbody x-sort>
+    <tbody x-sort="() => fetch('/table')">
       <tr *for="${row!} in $rows" x-sort:item>
         <th>
           <label>

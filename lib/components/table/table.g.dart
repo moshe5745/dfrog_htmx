@@ -45,7 +45,7 @@ TrustedHtml Table(TableData tableData) {
   $.write('\n    ');
   $.write('</thead>');
   $.write('\n    ');
-  $.write('<tbody x-sort="">');
+  $.write('<tbody x-sort="() => fetch(\'/table\')">');
   $.write('\n      ');
   for (var row in template.nonNullIterable(rows)) {
     $.write('<tr x-sort:item="">');

@@ -15,7 +15,7 @@ TrustedHtml navbar(TrustedHtml content) {
 
   var menu = menuList([
     (title: "Home", icon: iconHome(), url: "/"),
-    (title: "About", icon: iconGlobe(), url: "/about")
+    (title: "About", icon: iconGlobe(), url: "/table")
   ]);
   $.write(' ');
   $.write('<div class="drawer">');

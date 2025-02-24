@@ -1,13 +1,19 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cron/cron.dart';
 import 'package:dart_frog/dart_frog.dart';
+import 'package:dfrog_htmx/models/random_user_response.dart';
+import 'package:http/http.dart' as http;
 import 'package:sse/server/sse_handler.dart';
 
 final Set<SseConnection> activeConnections = {};
+List<User> randomUsers = [];
 
-Future<HttpServer> run(Handler handler, InternetAddress ip, int port) {
+Future<HttpServer> run(Handler handler, InternetAddress ip, int port) async {
+  randomUsers = await fetchRandomUsers();
+
   final cron = Cron();
 
   // Create SSE handler
@@ -19,9 +25,8 @@ Future<HttpServer> run(Handler handler, InternetAddress ip, int port) {
       .add(handler)
       .add(fromShelfHandler(sseHandler.handler));
 
-  cron.schedule(Schedule.parse('*/5 * * * * *'), () async {
-    print('every 5 seconds');
-
+  cron.schedule(Schedule.parse('*/5 * * * *'), () async {
+    randomUsers = await fetchRandomUsers();
     for (var connection in activeConnections) {
       connection.sink.add('Server Event at ${DateTime.now()}');
     }
@@ -30,6 +35,19 @@ Future<HttpServer> run(Handler handler, InternetAddress ip, int port) {
   unawaited(_handleSseConnections(connections.rest));
 
   return serve(cascade.handler, ip, port);
+}
+
+Future<List<User>> fetchRandomUsers() async {
+  print("Fetching random users...");
+  final res =
+      await http.get(Uri.parse('https://randomuser.me/api/?results=10'));
+
+  final randomUsersRes = switch (res.statusCode) {
+    200 => RandomUserResponse.fromJson(jsonDecode(res.body)),
+    _ => null
+  };
+
+  return randomUsersRes?.results ?? [];
 }
 
 // Handles incoming SSE connections
